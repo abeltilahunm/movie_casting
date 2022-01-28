@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1010911827574",
+    "project_id": "movie-casting-app",
+    "storage_bucket": "movie-casting-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010911827574:android:d808b63f46c24f8b897157",
+        "android_client_info": {
+          "package_name": "com.a6irdview.cast_actors"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010911827574-vesdf5v3a1g2gq09qtpso5l2sq9gccqm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4tKb8YmOuk00jqpyH_SDwATVecCutrb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010911827574-vesdf5v3a1g2gq09qtpso5l2sq9gccqm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
