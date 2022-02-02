@@ -18,8 +18,7 @@ class LoginView extends StatelessWidget {
         logo: const AssetImage('assets/logo.png'),
         onLogin: model.authUser,
         onSignup: model.signUpUser,
-        // children: [model.isBusy ? loadingSpinnerWidget : Container()],
-        onSubmitAnimationCompleted: model.onComplete,
+        onSubmitAnimationCompleted: () {},
         onRecoverPassword: model.recoverPassword,
       ),
     );

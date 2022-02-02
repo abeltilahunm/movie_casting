@@ -13,14 +13,16 @@ import 'package:stacked_services/stacked_services.dart';
 class StartUpViewModel extends StreamViewModel<User?> {
   final _firebaseService = locator<FirebaseAuthenticationService>;
 
+  //Initially displayed.
   Widget _child = loadingSpinnerWidget;
 
   @override
-  // TODO: implement stream
+  // This stream helps us identify the state of the users auth.
   Stream<User?> get stream => _firebaseService().authStateChanges;
 
   Widget get child => _child;
 
+  //Called on data
   startUp() async {
     setBusy(true);
     //This delayed is added because the flutter login package crushes.

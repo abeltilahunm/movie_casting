@@ -10,8 +10,8 @@ import 'app/setup_dialog_ui.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  setupLocator();
-  setupDialogUi();
+  setupLocator(); //Used to setup the locator of the get_it package.
+  setupDialogUi();//used to setup the dialog that is used through out the app
   runApp(const MyApp());
 }
 
@@ -21,6 +21,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //Tho here you won't find a home for the material app you can head over the
+    //lib/app/app.dart to find the entry of the app.
     return MaterialApp(
       title: 'Cast Apps',
       theme: ThemeData(

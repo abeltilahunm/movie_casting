@@ -9,8 +9,8 @@ class LoginViewModel extends BaseViewModel {
 
   Duration get loginTime => const Duration(milliseconds: 2250);
 
-  void onComplete() {}
-
+  //This used to authenticate user.
+  //The login data is a model from the package login
   Future<String?> authUser(LoginData data) async {
     logger.d('Name: ${data.name}, Password: ${data.password}');
     setBusy(true);
@@ -21,6 +21,8 @@ class LoginViewModel extends BaseViewModel {
     return result.hasError ? result.errorMessage : null;
   }
 
+  //This is used to signUp users.
+  //The signUp data is the data sent from the signUp form.
   Future<String?> signUpUser(SignupData data) async {
     logger.d('Signup Name: ${data.name}, Password: ${data.password}');
     setBusy(true);

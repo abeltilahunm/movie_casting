@@ -12,6 +12,8 @@ class StartupView extends StatelessWidget {
       viewModelBuilder: () => StartUpViewModel(),
       onModelReady: (model) => model.startUp(),
       builder: (context, model, child) => Scaffold(
+        // based on the user auth status they will either see login page or
+        // actors view.
         body: model.isBusy ? loadingSpinnerWidget : model.child,
       ),
     );
