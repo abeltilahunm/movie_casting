@@ -3,11 +3,13 @@ class Actor {
   final String description;
   final int cost;
   final String? id;
+  final String castedBy;
 
   const Actor({
     required this.name,
     required this.description,
     required this.cost,
+    required this.castedBy,
     this.id,
   });
 
@@ -17,6 +19,7 @@ class Actor {
       description: map['description'] as String,
       cost: map['cost'] as int,
       id: id,
+      castedBy: map['castedBy']
     );
   }
 
@@ -26,6 +29,7 @@ class Actor {
       'name': name,
       'description': description,
       'cost': cost,
+      'castedBy': castedBy
     } as Map<String, dynamic>;
   }
 }

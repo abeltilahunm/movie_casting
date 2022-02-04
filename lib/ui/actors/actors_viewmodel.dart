@@ -39,7 +39,6 @@ class ActorsViewModel extends StreamViewModel<List<Actor>> {
     return data!.length;
   }
 
-
   void onSelected(int val) {
     if (val == 0) {
       _navigationService.navigateTo(Routes.roasterView);
@@ -58,6 +57,7 @@ class ActorsViewModel extends StreamViewModel<List<Actor>> {
 
     if (response != null) {
       Actor actor = Actor(
+          castedBy: 'none',
           cost: int.parse(response.data['cost']),
           description: response.data['description'],
           name: response.data['name']!);

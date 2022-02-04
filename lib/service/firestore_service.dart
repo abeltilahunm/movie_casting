@@ -8,9 +8,7 @@ import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 
 class FireStoreService {
   final CollectionReference _actorsRef =
-      FirebaseFirestore.instance.collection('actors');
-  final CollectionReference _castedUserRef =
-      FirebaseFirestore.instance.collection('casted');
+      FirebaseFirestore.instance.collection('actors_New');
 
   final _authService = locator<FirebaseAuthenticationService>();
 
@@ -25,11 +23,16 @@ class FireStoreService {
   //This stream is used to fetch actors as a stream. This stream is listened on the
   //On the actors screen
   Stream<List<Actor>> fetchActors() {
-    _actorsRef.orderBy('cost', descending: true).snapshots().listen((event) {
+    _actorsRef
+        .where('castedBy', isEqualTo: 'none')
+        .snapshots()
+        .listen((event) {
+          logger.d('message');
       List<Actor> actors = List.from(event.docs.map((value) {
         return Actor.fromMap(value.data() as Map, value.id);
       }));
-      _actorStreamController.add(actors);
+      actors.sort((a, b)=> a.cost.compareTo(b.cost));
+      _actorStreamController.add(actors.reversed.toList());
     });
 
     return _actorStreamController.stream;
@@ -37,37 +40,38 @@ class FireStoreService {
 
   //This method is used to cast actors(Add them to roaster) of the logged in user.
   Future<void> castActor(Actor selectedActor) async {
-    await _castedUserRef
-        .doc(_authService.firebaseAuth.currentUser!.uid)
-        .collection('castedActors')
-        .add(selectedActor.toMap());
-
-    await _actorsRef.doc(selectedActor.id).delete();
+    Actor updated = Actor(
+        name: selectedActor.name,
+        description: selectedActor.description,
+        cost: selectedActor.cost,
+        castedBy: _authService.firebaseAuth.currentUser!.uid);
+    await _actorsRef.doc(selectedActor.id).update(updated.toMap());
   }
 
   //Used to fetch casted actors.
   Future<List<Actor>?> fetchCastedActors() async {
-    QuerySnapshot snapshot = await _castedUserRef
-        .doc(_authService.firebaseAuth.currentUser!.uid)
-        .collection('castedActors')
-        .orderBy('cost', descending: true)
+    QuerySnapshot snapshot = await _actorsRef
+        .where('castedBy',
+            isEqualTo: _authService.firebaseAuth.currentUser!.uid)
         .get();
     if (snapshot.size != 0) {
       List<Actor> actors = List.from(snapshot.docs.map((actorsDoc) {
         return Actor.fromMap(actorsDoc.data() as Map, actorsDoc.id);
       }));
-      return actors;
+      actors.sort((a, b)=> a.cost.compareTo(b.cost));
+      return actors.reversed.toList();
     } else {
       return null;
     }
   }
 
   Future<void> removeCastedActors(Actor castedActor) async {
-    await createActorRecord(castedActor.toMap());
-    await _castedUserRef
-        .doc(_authService.firebaseAuth.currentUser!.uid)
-        .collection('castedActors')
-        .doc(castedActor.id)
-        .delete();
+    Actor updated = Actor(
+        name: castedActor.name,
+        description: castedActor.description,
+        cost: castedActor.cost,
+        castedBy: "none");
+    await _actorsRef.doc(castedActor.id).update(updated.toMap());
+
   }
 }
