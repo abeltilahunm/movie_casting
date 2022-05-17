@@ -41,7 +41,7 @@ class ActorsViewModel extends StreamViewModel<List<Actor>> {
 
   void onSelected(int val) {
     if (val == 0) {
-      _navigationService.navigateTo(Routes.roasterView);
+      _navigationService.navigateTo(Routes.roasterView, );
     } else {
       _authService.logout();
     }

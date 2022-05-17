@@ -42,12 +42,12 @@ dependencies:
 
   stacked: ^2.2.8
   stacked_services: ^0.8.16
-  another_flushbar: ^1.10.28
   intl: ^0.17.0
+  another_flushbar: ^1.10.28
 
 
 
-  ui_helper:
+  ui_helper :
   flutter_login: ^3.1.0
 
 dev_dependencies:
